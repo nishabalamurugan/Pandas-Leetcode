@@ -1,0 +1,14 @@
+import pandas as pd
+
+def daily_leads_and_partners(daily_sales: pd.DataFrame) -> pd.DataFrame:
+    daily_sales.drop_duplicates(inplace=True)
+    daily_sales=daily_sales.groupby(["date_id","make_name"]).agg({
+        "lead_id":lambda x:x.nunique(),
+        "partner_id":lambda x:x.nunique()
+    }).reset_index()
+    daily_sales=daily_sales.rename({
+        "lead_id":"unique_leads",
+        "partner_id":"unique_partners"
+    },axis=1)
+    return daily_sales
+    
