@@ -1,0 +1,14 @@
+import pandas as pd
+
+def second_highest_salary(employee: pd.DataFrame) -> pd.DataFrame:
+    distinct=employee.drop_duplicates(subset=["salary"])
+    distinct=distinct.sort_values(by="salary") 
+    if(distinct["salary"].count()<2):
+        value=[None]
+    else:
+        value=[distinct["salary"].iloc[-2]]
+    new_df=pd.DataFrame({
+        "SecondHighestSalary":value
+    })
+    return new_df
+    
