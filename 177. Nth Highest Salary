@@ -1,0 +1,14 @@
+import pandas as pd
+
+def nth_highest_salary(employee: pd.DataFrame, N: int) -> pd.DataFrame:
+    colname="getNthHighestSalary("+str(N)+")"
+    employee=employee.drop_duplicates(subset=['salary'])
+    employee=employee.sort_values(by="salary",axis=0)
+    resdf=pd.DataFrame()
+    print("employee salary",employee["salary"][0])
+    if 0<N<=employee.salary.count():
+        val=[employee.iloc[-N, 1]]  
+    else:
+        val=[None]
+    resdf[colname]=val
+    return resdf
