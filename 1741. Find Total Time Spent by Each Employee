@@ -1,0 +1,19 @@
+import pandas as pd
+
+def calculate_time_spent(x):
+    print(x[3],x[2])
+    return x[3]-x[2]
+def total_time(employees: pd.DataFrame) -> pd.DataFrame:
+    employees["time_spent"]=employees.apply(calculate_time_spent,axis=1)
+    employees=employees.groupby(["emp_id","event_day"]).agg(
+        {
+            "time_spent":"sum"
+        }
+    ).reset_index();
+    employees=employees.rename({
+        "event_day":"day",
+        "time_spent":"total_time"
+    },axis=1)
+    return employees[["day","emp_id","total_time"]]
+    
+    
