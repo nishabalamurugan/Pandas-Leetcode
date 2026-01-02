@@ -1,0 +1,11 @@
+import pandas as pd
+
+def find_managers(employee: pd.DataFrame) -> pd.DataFrame:
+    grouped=employee.groupby("managerId").agg({
+        "id":"count"
+    }).reset_index()
+    ids=grouped[grouped["id"]>=5]
+    #print(ids)
+    res=employee.merge(ids,left_on="id",right_on="managerId",how="inner")
+    print(res)
+    return res[["name"]]
