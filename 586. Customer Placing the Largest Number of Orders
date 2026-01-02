@@ -1,0 +1,11 @@
+import pandas as pd
+
+def largest_orders(orders: pd.DataFrame) -> pd.DataFrame:
+    orders=orders.groupby("customer_number").agg({
+        "order_number":"count"
+    }).reset_index()
+    print(max(orders["order_number"]))
+    maxi=max(orders["order_number"])
+    orders=orders[orders["order_number"]==maxi]
+    return orders[["customer_number"]]
+    
